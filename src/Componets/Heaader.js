@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 function Heaader(props) {
     return (
@@ -15,6 +16,11 @@ function Heaader(props) {
                         <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
                         <a href="#" className="instagram"><i className="bi bi-instagram" /></a>
                         <a href="#" className="linkedin"><i className="bi bi-linkedin" /></a>
+                        <NavLink to={"#"} >
+                            <div>
+                                <Button close />
+                            </div>  
+                        </NavLink>
                     </div>
                 </div>
             </div>
