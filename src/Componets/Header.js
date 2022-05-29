@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
-function Heaader(props) {
+function Header(props) {
     return (
         <div className="main-header">
             <div id="topbar" className="d-flex align-items-center fixed-top">
@@ -19,7 +19,7 @@ function Heaader(props) {
                         <NavLink to={"#"} >
                             <div>
                                 <Button close />
-                            </div>  
+                            </div>
                         </NavLink>
                     </div>
                 </div>
@@ -55,14 +55,20 @@ function Heaader(props) {
                                 {/* <a className="nav-link scrollto" href="./pages/contact.html">Contact</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/Contact"}>Contact</NavLink>
                             </li>
+                            <li>
+                                {/* <a className="nav-link scrollto" href="./pages/contact.html">Contact</a> */}
+                                <NavLink exact className="nav-link scrollto" to={"/More"}>More</NavLink>
+                            </li>
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>
                     {/* <a href="./pages/appointment.html" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Make an</span>
                         Appointment</a> */}
-                        <NavLink exact className="appointment-btn scrollto" to={"/Appoiment"}><span className="d-none d-md-inline">Make an</span>
-                        Appointment</NavLink>
+
+
+                    <NavLink exact className="appointment-btn scrollto" to={"/More"}><span className="d-none d-md-inline">Make an</span>
+                        More</NavLink>
                     <a href="#" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </a>
@@ -73,4 +79,4 @@ function Heaader(props) {
     );
 }
 
-export default Heaader;
+export default Header;

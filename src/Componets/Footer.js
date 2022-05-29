@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Footear(props) {
+function Footer(props) {
     return (
         <footer id="footer">
             <div className="container d-md-flex py-4">
@@ -26,9 +26,9 @@ function Footear(props) {
             </div>
         </footer>
 
-        
+
 
     );
 }
 
-export default Footear;
+export default Footer;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Homme(props) {
+function Home(props) {
     return (
         <>
 
@@ -272,4 +272,4 @@ function Homme(props) {
     );
 }
 
-export default Homme;
+export default Home;
