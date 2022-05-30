@@ -5,6 +5,7 @@ import Contact from "./Componets/Contact";
 import Department from "./Componets/Department";
 import Doctors from "./Componets/Doctors";
 import Footer from "./Componets/Footer";
+import Form2 from "./Componets/Form2";
 import Header from "./Componets/Header";
 import More from "./Componets/More";
 import Home from "./Conatainers/Home";
@@ -25,6 +26,7 @@ function App() {
         <Route exact path={"/Contact"} component={Contact} />
         <Route exact path={"/Appoiment"} component={Appoiment} />
         <Route exact path={"/More"} component={More} />
+        <Route exact path={"/Form"} component={Form2} />
       </Switch>
       <Footer />
      
