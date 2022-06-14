@@ -9,6 +9,7 @@ function Login(props) {
   let Login = {
     email: yup.string().email("please enter valid email").required("please enter email"),
     password: yup.string().required("please enter Password"),
+     
   }
 
   let SignUp = {
@@ -24,6 +25,7 @@ function Login(props) {
   let schema, initiValue;
 
   if (useType === "Login") {
+    
     schema = yup.object().shape(Login);
     initiValue = {
       email: "",
@@ -51,7 +53,7 @@ function Login(props) {
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
       // alert(JSON.stringify(values, null, 2));
-
+      sessionStorage.setItem("user","123445");
       if (useType === "Login") {
         console.log("Successfully Login");
       } else if (useType === "SignUp") {
@@ -168,6 +170,7 @@ function Login(props) {
                       <Button type='submit' className="appointment-btn scrollto m-0">
                         {
                           useType === 'forgetPassowrd' ? "Send OPT" : "Sign Up"
+                          
                         }</Button>
                       <Button type='submit' className="appointment-btn scrollto m-0"
                         onClick={() => setUseType("Login")}>Login</Button>
