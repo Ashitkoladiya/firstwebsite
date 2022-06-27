@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { Button, Input, Label } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 function Form2(props) {
     const [userform, setuserform] = useState("Form_1");
@@ -31,9 +32,9 @@ function Form2(props) {
             resetForm()
         },
     });
-    console.log(formik.errors.name);
-    console.log(formik.errors.email);
-    console.log(formik.errors.subject);
+    // console.log(formik.errors.name);
+    // console.log(formik.errors.email);
+    // console.log(formik.errors.subject);
 
     return (
         <>
@@ -44,6 +45,14 @@ function Form2(props) {
                         <h3 className='text-center mb-4 text-success'>Doctor Form</h3>
                             <Formik value={formik}>
                                 <Form onSubmit={formik.handleSubmit}>
+                                <div className="row">
+                                            <div className="col-6">
+                                               <NavLink to={"/BookDoctor"}>BookDoctor</NavLink>
+                                            </div>
+                                            <div className="col-6">
+                                               <NavLink to={"/ListDoctor"}>ListDoctor</NavLink>
+                                            </div>
+                                    </div>
                                     <div className="row">
                                         <div className="col-md-6 form-group">
                                                 <Label>Doctor Name</Label>
@@ -62,6 +71,7 @@ function Form2(props) {
                                             }
                                         </div>
                                     </div>
+                                   
                                     <div className="form-group mt-3">
                                             <Label>Doctor Degrees</Label>
                                         <Input type="text" className="form-control" name="degress" id="degress" placeholder="Degrees" onChange={formik.handleChange} />
