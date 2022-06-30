@@ -62,6 +62,9 @@ function Header(props) {
                             <li>
                             <NavLink exact className="nav-link scrollto" to={"/Form"}>Doctor Form</NavLink>
                             </li>
+                            <li>
+                                <NavLink exact className="nav-link scrollto" to={"/counter"}>Counter</NavLink>
+                            </li>
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>
