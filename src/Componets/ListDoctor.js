@@ -7,12 +7,16 @@ import { Dialog, DialogActions, IconButton } from '@mui/material';
 import { Button } from 'reactstrap';
 import EditIcon from '@mui/icons-material/Edit';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { get_medicines } from '../redux/action/medicines.action';
 
 function ListDoctor(props) {
     const [data, setData] = useState([]);
     const [Dopen, setDOpen] = useState(false);
     const [Did, setDid] = useState('');
     const history = useHistory()
+
+    
 
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("appointment"));
@@ -38,7 +42,7 @@ function ListDoctor(props) {
         console.log(Did);
         let localData = JSON.parse(localStorage.getItem("appointment"));
 
-        let DFilter = localData.filter((d, i) => d.id != Did);
+        let DFilter = localData.filter((d, i) => d.id !== Did);
 
         localStorage.setItem("appointment", JSON.stringify(DFilter))
         loadData();
@@ -49,8 +53,12 @@ function ListDoctor(props) {
         history.push("/BookDoctor", { "id": id });
     }
 
+    const dispatch = useDispatch()
+    const select = useSelector(state => state.medicine)
+    console.log(select);
     useEffect(
         () => {
+            dispatch(get_medicines())
             loadData();
         }, []
     )
