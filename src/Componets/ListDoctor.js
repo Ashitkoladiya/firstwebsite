@@ -16,7 +16,7 @@ function ListDoctor(props) {
     const [Did, setDid] = useState('');
     const history = useHistory()
 
-    
+    console.log(data);
 
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("appointment"));
@@ -56,6 +56,9 @@ function ListDoctor(props) {
     const dispatch = useDispatch()
     const select = useSelector(state => state.medicine)
     console.log(select);
+
+    console.log(select.medicine);
+    console.log(select.error.message)
     useEffect(
         () => {
             dispatch(get_medicines())
@@ -91,35 +94,45 @@ function ListDoctor(props) {
         },
     ]
 
-
     return (
-        <main id="main">
-            <section id="appointment" className="appointment">
-                <div className="container">
-                    <div className="section-title">
-                        <h2 className='text-center'> List Appointment</h2>
+
+        <>
+        {
+            select.isLoading ? (
+                <h1>Loading......</h1>
+            ) : (select.error !== '' ? 
+                <center><h1>{select.error}</h1></center>
+            :
+            <main id="main">
+                <section id="appointment" className="appointment">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2 className='text-center'> List Appointment</h2>
+                        </div>
+                        <div style={{ height: 400, width: '100%' }}>
+                            <DataGrid
+                                rows={select.medicine}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                            />
+                        </div>
                     </div>
-                    <div style={{ height: 400, width: '100%' }}>
-                        <DataGrid
-                            rows={data}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                        />
-                    </div>
-                </div>
-            </section>
-            <Dialog
-                open={Dopen}
-                keepMounted
-                onClose={handleClose}
-            >
-                <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleDelete}>Agree</Button>
-                </DialogActions>
-            </Dialog>
-        </main>
+                </section>
+                <Dialog
+                    open={Dopen}
+                    keepMounted
+                    onClose={handleClose}
+                >
+                    <DialogActions>
+                        <Button onClick={handleClose}>Disagree</Button>
+                        <Button onClick={handleDelete}>Agree</Button>
+                    </DialogActions>
+                </Dialog>
+            </main>
+            )
+        }
+        </>
 
     );
 }

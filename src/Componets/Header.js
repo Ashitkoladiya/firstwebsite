@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import { ContextTheme, Toogle_theme } from '../context/ContextTheme';
+
+
 
 function Header(props) {
+    const theme = useContext(ContextTheme);
+    console.log(ContextTheme.theme);
     return (
+       <>
         <div className="main-header">
-            <div id="topbar" className="d-flex align-items-center fixed-top">
+            <div id="topbar" className= {`d-flex align-items-center fixed-top ${theme.theme}`}>
                 <div className="container d-flex justify-content-between">
                     <div className="contact-info d-flex align-items-center">
                         <i className="bi bi-envelope" /> <a href="mailto:contact@example.com">cityhospital@example.com</a>
@@ -21,11 +27,12 @@ function Header(props) {
                                 <Button close />
                             </div>
                         </NavLink>
+                        <Button onClick={()=>theme.toogle_theme(theme.theme)}>Change theme</Button>
                     </div>
                 </div>
             </div>
             <header id="header" className="fixed-top">
-                <div className="container d-flex align-items-center">
+                <div className={`container d-flex align-items-center${theme.theme}`}>
                     <div className="logo">
                         <a href="index.html">
                             <h1 className="logo me-auto">City</h1><br />
@@ -83,6 +90,7 @@ function Header(props) {
                 </div>
             </header>
         </div>
+       </>
 
     );
 }

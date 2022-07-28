@@ -1,5 +1,6 @@
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { ThemeContext } from "styled-components";
 import About from "./Componets/About";
 import Appoiment from "./Componets/Appoiment";
 import BookDoctor from "./Componets/BookDoctor";
@@ -13,6 +14,7 @@ import ListDoctor from "./Componets/ListDoctor";
 import More from "./Componets/More";
 import Counter from "./Conatainers/counter/Counter";
 import Home from "./Conatainers/Home";
+import { ContextTheme, Toogle_theme } from "./context/ContextTheme";
 import { ConfigStore } from "./redux/action/store";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicRoute from "./Routes/PublicRoute";
@@ -23,6 +25,8 @@ function App() {
   const store = ConfigStore();
   return (
     <>
+
+    <Toogle_theme>
   <Provider store={store}>
       <Header />
       <Switch>
@@ -41,6 +45,8 @@ function App() {
       </Switch>
       <Footer />
   </Provider>
+
+  </Toogle_theme>
      
 
     </>
