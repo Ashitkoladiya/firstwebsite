@@ -29,6 +29,14 @@ function Form2(props) {
             if (userform === "Form_1") {
                 console.log("Successfully Send Message");
             }
+
+
+            let data ={
+                 email,
+                 password
+            }
+            dispatch(signAction(data))
+            
             resetForm()
         },
     });
