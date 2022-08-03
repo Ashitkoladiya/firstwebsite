@@ -1,102 +1,193 @@
-import React, { useState } from 'react';
-import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
-import { Button, Input, Label } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Button, FormGroup, Input, Label } from 'reactstrap';
+import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
 
 function Form2(props) {
-    const [userform, setuserform] = useState("Form_1");
+    const [useType, setUseType] = useState("Form_1");
+    const dispatch = useDispatch();
 
-    let Form_1 = {
-        name: yup.string().required("please enter doctor name"),
+    let Login = {
         email: yup.string().email("please enter valid email").required("please enter email"),
-        degress: yup.string().required("please enter your degress"),
+        password: yup.string().required("please enter Password"),
     }
 
-    let schema, initialVal;
+    let SignUp = {
+        name: yup.string().required("please Enter Name"),
+        email: yup.string().email("please enter valid email").required("please enter email"),
+        password: yup.string().required("please enter Password"),
+    }
 
-    schema = yup.object().shape(Form_1);
-    initialVal = {
-        name: "",
-        email: "",
-        degress: ""
+    let forgetPassowrd = {
+        email: yup.string().email("please enter valid email").required("please enter email"),
+    }
+
+    let schema, initiValue;
+
+    if (useType === "Login") {
+        schema = yup.object().shape(Login);
+        initiValue = {
+            email: "",
+            password: ""
+        }
+
+    } else if (useType === "SignUp") {
+        schema = yup.object().shape(SignUp);
+        initiValue = {
+            name: "",
+            email: "",
+            password: ""
+        }
+    } else if (useType === "forgetPassowrd") {
+        schema = yup.object().shape(forgetPassowrd);
+        initiValue = {
+            email: ""
+        }
+    }
+
+    // const schema = yup.object().shape(Login);
+    const handleLogin = (v) => {
+        sessionStorage.setItem("user", "123");
+        console.log(v);
+        dispatch(Form2(v));        
     }
 
     const formik = useFormik({
-        initialValues: initialVal,
+        initialValues: initiValue,
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-            if (userform === "Form_1") {
-                console.log("Successfully Send Message");
-            }
+            // alert(JSON.stringify(values, null, 2));
 
-
-            let data ={
-                 email,
-                 password
+            if (useType === "Login") {
+                // console.log("Successfully Login ");
+                handleLogin(values);
+            } else if (useType === "SignUp") {
+                console.log("Successfully SignUp ");
+            } else if (useType === "forgetPassowrd") {
+                console.log("Successfully Forget Passowrd ");
             }
-            dispatch(signAction(data))
-            
             resetForm()
         },
     });
-    // console.log(formik.errors.name);
-    // console.log(formik.errors.email);
-    // console.log(formik.errors.subject);
+
+    console.log(formik.errors.email);
 
     return (
-        <>
-            <main>
-                <section className='mt-5'>
-                    <div className='container'>
-                        <div className="col-lg-8 mt-5 mt-lg-0">
-                        <h3 className='text-center mb-4 text-success'>Doctor Form</h3>
-                            <Formik value={formik}>
-                                <Form onSubmit={formik.handleSubmit}>
-                                <div className="row">
-                                            <div className="col-6">
-                                               <NavLink to={"/BookDoctor"}>BookDoctor</NavLink>
-                                            </div>
-                                            <div className="col-6">
-                                               <NavLink to={"/ListDoctor"}>ListDoctor</NavLink>
-                                            </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6 form-group">
-                                                <Label>Doctor Name</Label>
-                                            <Input type="text" name="name" className="form-control" id="name" placeholder="Doctor Name" onChange={formik.handleChange} />
+        <main id="main">
+            <section id="contact" className="contact">
+                <div className="container">
+                    <div className='login' style={{ width: "50%", margin: "auto" }}>
+                        {
+                            useType === 'forgetPassowrd' ? <h3 className='text-center'>Forgot Password</h3> :
+                                useType === "Login" ?
+                                    <h3 className='text-center'>Login</h3> :
+                                    <h3 className='text-center'>Sign Up</h3>
+                        }
+                        <Formik value={formik}>
+                            <Form onSubmit={formik.handleSubmit}>
+                                {
+                                    useType === 'forgetPassowrd' ?
+                                        <FormGroup>
+                                            <Label for="exampleEmail">
+                                                Email
+                                            </Label>
+                                            <Input
+                                                id="exampleEmail"
+                                                name="email"
+                                                placeholder="Enter Email"
+                                                type="email"
+                                                onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.errors.email ?
+                                                    <p>{formik.errors.email}</p> : null
+                                            }
+                                        </FormGroup>
+                                        : null
+                                }
+                                {
+                                    useType === "SignUp" ?
+                                        <FormGroup>
+                                            <Label for="exampleEmail">
+                                                Name
+                                            </Label>
+                                            <Input
+                                                name="name"
+                                                placeholder="Enter Name"
+                                                type="text"
+                                                onChange={formik.handleChange}
+                                            />
                                             {
                                                 formik.errors.name ?
-                                                <p>{formik.errors.name}</p> : null
+                                                    <p>{formik.errors.name}</p> : null
                                             }
-                                        </div>
-                                        <div className="col-md-6 form-group mt-3 mt-md-0">
-                                                <Label>Doctor Email</Label>
-                                            <Input type="email" className="form-control" name="email" id="email" placeholder="Doctor Email" onChange={formik.handleChange} />
+                                        </FormGroup> :
+                                        null
+                                }
+                                {
+                                    (useType === "Login" || useType === "SignUp") &&
+                                    <>
+                                        <FormGroup>
+                                            <Label for="exampleEmail">
+                                                Email
+                                            </Label>
+                                            <Input
+                                                id="exampleEmail"
+                                                name="email"
+                                                placeholder="Enter Email"
+                                                type="email"
+                                                onChange={formik.handleChange}
+                                            />
                                             {
-                                                formik.errors.email ? 
-                                                <p>{formik.errors.email}</p> : null
+                                                formik.errors.email ?
+                                                    <p>{formik.errors.email}</p> : null
                                             }
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="examplePassword">
+                                                Password
+                                            </Label>
+                                            <Input
+                                                id="examplePassword"
+                                                name="password"
+                                                placeholder="password"
+                                                type="password"
+                                                onChange={formik.handleChange}
+                                            />
+                                            {
+                                                formik.errors.password ?
+                                                    <p>{formik.errors.password}</p> : null
+                                            }
+                                        </FormGroup>
+                                    </>
+                                }
+                                {
+                                    useType === "Login" ?
+                                        <div className="text-center">
+                                            <Button type='submit'
+                                                className="appointment-btn scrollto m-0">Login</Button>
+                                            <p className="mt-3 cursor-pointer" onClick={() => setUseType("forgetPassowrd")}
+                                                style={{ cursor: "pointer" }}>Forgot Password</p>
+                                            <Button type='submit' className="appointment-btn scrollto m-0"
+                                                onClick={() => setUseType("SignUp")}>Sign Up</Button>
+                                        </div> :
+                                        <div className="text-center">
+                                            <Button type='submit' className="appointment-btn scrollto m-0">
+                                                {
+                                                    useType === 'forgetPassowrd' ? "Send OPT" : "Sign Up"
+                                                }</Button>
+                                            <Button type='submit' className="appointment-btn scrollto m-0"
+                                                onClick={() => setUseType("Login")}>Login</Button>
                                         </div>
-                                    </div>
-                                   
-                                    <div className="form-group mt-3">
-                                            <Label>Doctor Degrees</Label>
-                                        <Input type="text" className="form-control" name="degress" id="degress" placeholder="Degrees" onChange={formik.handleChange} />
-                                        {
-                                                formik.errors.degress ? 
-                                                <p>{formik.errors.degress}</p> : null
-                                            }
-                                    </div>
-                                    
-                                    <div className="text-center mt-4"><Button type="submit" onClick={() => setuserform("Form_1")}>Send Message</Button></div>
-                                </Form>
-                            </Formik>
-                        </div>
+                                }
+                            </Form>
+                        </Formik>
                     </div>
-                </section>
-            </main>
-        </>
+                </div>
+            </section>
+        </main>
+ 
     );
 }
 

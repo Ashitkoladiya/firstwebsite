@@ -39,7 +39,7 @@ function App() {
         <PublicRoute exact path={"/About"} component={About} />
         <PublicRoute exact path={"/Contact"} component={Contact} />
         <PublicRoute exact path={"/Appoiment"} component={Appoiment} />
-        <PublicRoute  restricted = {true} exact path={"/More"} component={More} />
+        <Route exact path={"/More"} component={More} />
         <Route exact path={"/Form"} component={Form2} />
         <Route exact path={"/counter"} component ={Counter} />
       </Switch>
