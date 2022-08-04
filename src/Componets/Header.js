@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import Alert from '../Conatainers/Alert/Alert';
 import { ContextTheme, Toogle_theme } from '../context/ContextTheme';
 
 
@@ -10,6 +11,7 @@ function Header(props) {
     console.log(ContextTheme.theme);
     return (
        <>
+       
         <div className="main-header">
             <div id="topbar" className= {`d-flex align-items-center fixed-top ${theme.theme}`}>
                 <div className="container d-flex justify-content-between">
@@ -31,8 +33,11 @@ function Header(props) {
                     </div>
                 </div>
             </div>
+            
             <header id="header" className="fixed-top">
+
                 <div className={`container d-flex align-items-center${theme.theme}`}>
+                
                     <div className="logo">
                         <a href="index.html">
                             <h1 className="logo me-auto">City</h1><br />
@@ -87,9 +92,13 @@ function Header(props) {
                     <a href="#" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </a>
+                   <Alert />
                 </div>
+                
             </header>
+            
         </div>
+        
        </>
 
     );

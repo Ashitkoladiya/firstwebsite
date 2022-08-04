@@ -18,6 +18,7 @@ import { ContextTheme, Toogle_theme } from "./context/ContextTheme";
 import { ConfigStore } from "./redux/action/store";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicRoute from "./Routes/PublicRoute";
+import { SnackbarProvider } from 'notistack';
 
 
 
@@ -25,29 +26,30 @@ function App() {
   const store = ConfigStore();
   return (
     <>
+      <SnackbarProvider maxSnack={3}>
+        <Toogle_theme>
+          <Provider store={store}>
+            <Header />
+            <Switch>
+              {/* <Route exact path={"/"} Component={Homme} /> */}
+              <PublicRoute exact path={"/"} component={Home} />
+              <PublicRoute exact path={"/Department"} component={Department} />
+              <PrivateRoute exact path={"/Doctors"} component={Doctors} />
+              <PrivateRoute exact path={"/BookDoctor"} component={BookDoctor} />
+              <PrivateRoute exact path={"/ListDoctor"} component={ListDoctor} />
+              <PublicRoute exact path={"/About"} component={About} />
+              <PublicRoute exact path={"/Contact"} component={Contact} />
+              <PublicRoute exact path={"/Appoiment"} component={Appoiment} />
+              <Route exact path={"/More"} component={More} />
+              <Route exact path={"/Form"} component={Form2} />
+              <Route exact path={"/counter"} component={Counter} />
+            </Switch>
+            <Footer />
+          </Provider>
 
-    <Toogle_theme>
-  <Provider store={store}>
-      <Header />
-      <Switch>
-        {/* <Route exact path={"/"} Component={Homme} /> */}
-        <PublicRoute exact path={"/"} component={Home} />
-        <PublicRoute exact path={"/Department"} component={Department} />
-        <PrivateRoute exact path={"/Doctors"} component={Doctors} />
-        <PrivateRoute exact path={"/BookDoctor"} component={BookDoctor} />
-        <PrivateRoute exact path={"/ListDoctor"} component={ListDoctor} />
-        <PublicRoute exact path={"/About"} component={About} />
-        <PublicRoute exact path={"/Contact"} component={Contact} />
-        <PublicRoute exact path={"/Appoiment"} component={Appoiment} />
-        <Route exact path={"/More"} component={More} />
-        <Route exact path={"/Form"} component={Form2} />
-        <Route exact path={"/counter"} component ={Counter} />
-      </Switch>
-      <Footer />
-  </Provider>
+        </Toogle_theme>
+      </SnackbarProvider>
 
-  </Toogle_theme>
-     
 
     </>
   );
