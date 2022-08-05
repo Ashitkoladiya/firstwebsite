@@ -7,6 +7,7 @@ import { EmailVerify } from '../redux/action/auth.action';
 function* fetchUser(action) { 
    try {
       const user = yield call(signupApi, action.payload);
+      
       yield put(EmailVerify(user));
       console.log(user);
       yield put(SetAlert({text : user.payload,color : 'success'}))
@@ -19,6 +20,7 @@ function* fetchUser(action) {
 }
 function* watchauth() {
   yield takeEvery(ActionTypes.AUTH_LOGIN, fetchUser);
+  yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
 }
 export function* authsaga (){
    yield all([

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { signAction } from '../redux/action/auth.action';
+import { loginAction, signAction, signup } from '../redux/action/auth.action';
 
 
 function Login(props) {
@@ -34,6 +34,8 @@ function Login(props) {
         console.log(data);
         localStorage.setItem("users", JSON.stringify(values));
         alert(JSON.stringify(values, null, 2));
+        dispatch(loginAction(values))
+
 
 
     }
@@ -88,10 +90,12 @@ function Login(props) {
         onSubmit: (values, { resetForm }) => {
             if (userType === "Login" && !reset) {
                 // handletLogin(values)
-                dispatch(signAction(values))
+                dispatch(loginAction(values))
             } else if (userType === "Signup" && !reset) {
                 // handleSignup(values)
-                
+                dispatch(signup(values))
+
+
             } else if (reset) {
                 handlepassword(values)
             }
@@ -193,7 +197,7 @@ function Login(props) {
                                     reset === true ?
                                         <div className='text-center mt-5'>
                                             <span>already have an account ?</span>
-                                            <a onClick={() => setReset(false)}>Login</a>
+                                            <a onClick={() => setReset(true)}>Login</a>
                                         </div> :
                                         userType === 'Login' ?
                                             <div className='text-center mt-5'>
