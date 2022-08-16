@@ -17,3 +17,13 @@ export const AUTH_SIGN = "AUTH_SIGN"
 
 export const SET_ALERT = "SET_ALERT"
 export const RESET_ALERT = "RESET_ALERT"
+
+export const LOADED_FORM = "LOADED_FORM"
+
+export const LogOutUser = "LogOutUser"
+export const LoggedOutUser="LoggedOutUser"
+
+
+//google Log In
+
+export const GOOGLE_USER = "GOOGLE_USER"

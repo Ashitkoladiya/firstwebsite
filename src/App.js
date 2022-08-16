@@ -1,3 +1,4 @@
+import './App.css'
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { ThemeContext } from "styled-components";
@@ -15,20 +16,21 @@ import More from "./Componets/More";
 import Counter from "./Conatainers/counter/Counter";
 import Home from "./Conatainers/Home";
 import { ContextTheme, Toogle_theme } from "./context/ContextTheme";
-import { ConfigStore } from "./redux/action/store";
+import store, { ConfigStore, persistor } from "./redux/action/store";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicRoute from "./Routes/PublicRoute";
 import { SnackbarProvider } from 'notistack';
-
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 function App() {
-  const store = ConfigStore();
+  // const store = ConfigStore();
   return (
     <>
       <SnackbarProvider maxSnack={3}>
         <Toogle_theme>
           <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
             <Header />
             <Switch>
               {/* <Route exact path={"/"} Component={Homme} /> */}
@@ -45,6 +47,7 @@ function App() {
               <Route exact path={"/counter"} component={Counter} />
             </Switch>
             <Footer />
+            </PersistGate>
           </Provider>
 
         </Toogle_theme>

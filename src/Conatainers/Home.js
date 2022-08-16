@@ -10,10 +10,6 @@ function Home(props) {
                     <h2>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
                 </div>
             </section>
-
-
-
-
             <main id="main">
                 <section id="why-us" className="why-us">
                 </section>

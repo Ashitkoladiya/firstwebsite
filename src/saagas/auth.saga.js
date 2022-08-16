@@ -1,8 +1,9 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects'
-import { signupApi } from '../Comman/api/auth.api';
+import { googleLoginApi, loginApi, logoutApi, signupApi } from '../Comman/api/auth.api';
+import { history } from '../history';
 import *as ActionTypes from '../redux/action/ActionTypes'
-import { ReSetAlert, SetAlert } from '../redux/action/Alert.action';
-import { EmailVerify } from '../redux/action/auth.action';
+import { SetAlert } from '../redux/action/Alert.action';
+import { EmailVerify, LoggedOutUser, LoggedUser, signupAction } from '../redux/action/auth.action';
 
 function* fetchUser(action) { 
    try {
@@ -18,10 +19,61 @@ function* fetchUser(action) {
 
    }
 }
-function* watchauth() {
-  yield takeEvery(ActionTypes.AUTH_LOGIN, fetchUser);
-  yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
+
+function* loginUser(action){
+   console.log(action.payload);
+try{
+   const user = yield call(loginApi, action.payload);
+   yield put(SetAlert({text : "Email Successfully" , color  : 'success'}))
+   history.push("/")
+   yield put(LoggedUser(user));
+  
+   console.log(user);
+}catch(e){
+  
+      yield put(SetAlert({text:e.payload,color:'error'}))
+  console.log(e);
 }
+
+
+
+}
+
+function* logoutUsers(){
+   try{
+   const user = yield call(logoutApi);
+   yield put(SetAlert({text : user.payload , color  : 'success'}))
+   yield put(LoggedOutUser());
+   history.push("/More")
+   }catch(e){
+      yield put(SetAlert({text:e.payload,color:'error'}))
+   }
+}
+
+function*googleLoginUser(){
+   try{
+      const user = yield call(googleLoginApi());
+      yield put(SetAlert({text : user.payload , color  : 'success'}))
+      yield put(LoggedOutUser());
+      history.push("/")
+   }catch(e){
+
+   }
+}
+function* watchauth() {
+  
+   yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
+
+   yield takeEvery(ActionTypes.AUTH_LOGIN,loginUser );
+   yield takeEvery(ActionTypes.LogOutUser,logoutUsers );
+
+   yield takeEvery(ActionTypes.GOOGLE_USER,googleLoginUser)
+}
+
+
+
+
+
 export function* authsaga (){
    yield all([
       watchauth()

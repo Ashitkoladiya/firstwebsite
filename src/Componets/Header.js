@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import Alert from '../Conatainers/Alert/Alert';
 import { ContextTheme, Toogle_theme } from '../context/ContextTheme';
+import { LoggedOutUser, loginAction, LogoutAction } from '../redux/action/auth.action';
 
 
 
 function Header(props) {
     const theme = useContext(ContextTheme);
-    console.log(ContextTheme.theme);
+    // console.log(ContextTheme.theme);
+
+    let auth = useSelector(state=>state.auth);
+    console.log(auth);
+const dispatch = useDispatch()
+
+   const handlelogout=()=>{
+    dispatch(LogoutAction())
+    } 
     return (
         <>
 
@@ -69,7 +79,7 @@ function Header(props) {
                                 </li>
                                 <li>
                                     {/* <a className="nav-link scrollto" href="./pages/contact.html">Contact</a> */}
-                                    <NavLink exact className="nav-link scrollto" to={"/More"}>More</NavLink>
+                                    <NavLink exact className="nav-link scrollto" to={"/More"}>LOG IN</NavLink>
                                 </li>
                                 <li>
                                     <NavLink exact className="nav-link scrollto" to={"/Form"}>Doctor Form</NavLink>
@@ -89,9 +99,20 @@ function Header(props) {
                         <NavLink exact className="appointment-btn scrollto" to={"/Form"}>
                             {/* <span className="d-none d-md-inline">Make an</span> */}
                             Doctor</NavLink>
-                        <a href="#" className="appointment-btn scrollto">
-                            <span className="d-none d-md-inline">Login/ Signup</span>
-                        </a>
+                        {
+                                auth.user === null ?
+                            <a href="#" className="appointment-btn scrollto">
+                                <span className="d-none d-md-inline" onClick={
+                                    <NavLink exact className="nav-link scrollto" to={"/More"}></NavLink>
+                                }>Login/ Signup</span>
+                            </a>
+                        :
+                            <a href="#" className="appointment-btn scrollto">
+                                <span className="d-none d-md-inline" onClick={()=>handlelogout()}>
+                                    <NavLink exact className="nav-link scrollto" to={"/More"}></NavLink>
+                                Logout</span>
+                            </a>
+                        }
                         <Alert />
                     </div>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { loginAction, signAction, signup } from '../redux/action/auth.action';
+import { googleLogin, loginAction, signAction, signup, signupAction } from '../redux/action/auth.action';
 
 
 function Login(props) {
@@ -40,6 +40,9 @@ function Login(props) {
 
     }
 
+    const handleGoogleLogin =(values)=>{
+        dispatch(googleLogin())
+    }
 
     const handlepassword = (values) => {
         alert(JSON.stringify(values.email));
@@ -51,7 +54,7 @@ function Login(props) {
     }
 
     let Signup = {
-        name: yup.string().required('please enter name'),
+        
         email: yup.string().required('enter email').email('enter valid email'),
         password: yup.string().required('please enter password'),
     }
@@ -72,7 +75,7 @@ function Login(props) {
     } else if (userType === "Signup" && !reset) {
         schema = yup.object().shape(Signup);
         initVal = {
-            name: '',
+           
             email: '',
             password: ''
         }
@@ -92,10 +95,8 @@ function Login(props) {
                 // handletLogin(values)
                 dispatch(loginAction(values))
             } else if (userType === "Signup" && !reset) {
+                dispatch(signupAction(values))
                 // handleSignup(values)
-                dispatch(signup(values))
-
-
             } else if (reset) {
                 handlepassword(values)
             }
@@ -193,6 +194,7 @@ function Login(props) {
                                                 <button type="submit">signup</button>
                                             </div>
                                 }
+                                
                                 {
                                     reset === true ?
                                         <div className='text-center mt-5'>
@@ -210,6 +212,11 @@ function Login(props) {
                                                 <a onClick={() => { setUserType('Login') }} >Login</a>
                                             </div>
                                 }
+                                 <button onClick={()=>handleGoogleLogin()} className="google-btn">
+                                    <img src='../assets/img/google.png' width={40}/>sign up Google</button>
+                               
+
+
                             </div>
                         </Form>
                     </Formik>
