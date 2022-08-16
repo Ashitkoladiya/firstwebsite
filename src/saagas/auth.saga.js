@@ -61,13 +61,17 @@ function*googleLoginUser(){
    }
 }
 function* watchauth() {
-  
    yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
+}
 
+function* watchlogin(){
    yield takeEvery(ActionTypes.AUTH_LOGIN,loginUser );
+}
+function*watchlogout(){
    yield takeEvery(ActionTypes.LogOutUser,logoutUsers );
-
-   yield takeEvery(ActionTypes.GOOGLE_USER,googleLoginUser)
+}
+function* watchgooglelogin(){
+   yield takeEvery(ActionTypes.GOOGLE_USER,googleLoginUser);
 }
 
 
@@ -76,6 +80,9 @@ function* watchauth() {
 
 export function* authsaga (){
    yield all([
-      watchauth()
+      watchauth(),
+      watchlogin(),
+      watchlogout(),
+      watchgooglelogin()
    ])
 };
