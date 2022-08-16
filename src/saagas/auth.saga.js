@@ -20,10 +20,15 @@ function* fetchUser(action) {
 }
 function* watchauth() {
   yield takeEvery(ActionTypes.AUTH_LOGIN, fetchUser);
-  yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
+  
 }
-export function* authsaga (){
+
+function* watchsign() {
+   yield takeEvery(ActionTypes.AUTH_SIGN, fetchUser);
+}
+export function* authsaga(){
    yield all([
-      watchauth()
+      watchauth(),
+      watchsign()
    ])
 };
