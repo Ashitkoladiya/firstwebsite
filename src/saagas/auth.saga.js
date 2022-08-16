@@ -24,7 +24,7 @@ function* loginUser(action){
    console.log(action.payload);
 try{
    const user = yield call(loginApi, action.payload);
-   yield put(SetAlert({text : "Email Successfully" , color  : 'success'}))
+   yield put(SetAlert({text : "login Successfully" , color  : 'success'}))
    history.push("/")
    yield put(LoggedUser(user));
   
