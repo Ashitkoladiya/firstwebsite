@@ -27,3 +27,8 @@ export const LoggedOutUser="LoggedOutUser"
 //google Log In
 
 export const GOOGLE_USER = "GOOGLE_USER"
+
+
+// forget password 
+
+export const FORGET_PASSWORD = "FORGET_PASSWORD"

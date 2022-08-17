@@ -27,3 +27,8 @@ export const LoggedOutUser =() => (dispatch)=>{
 export const googleLogin =() => (dispatch)=>{
     dispatch({type:ActionTypes.GOOGLE_USER})
 }
+//Forget Password
+
+export const forgetPassword =(data)=>(dispatch)=>{
+    dispatch({type:ActionTypes.FORGET_PASSWORD ,payload:data})
+}
